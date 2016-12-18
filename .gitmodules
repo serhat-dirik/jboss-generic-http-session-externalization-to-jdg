@@ -1,0 +1,3 @@
+[submodule "docker-demo-images"]
+	path = docker-demo-images
+	url = https://github.com/serhat-dirik/docker-demo-images
