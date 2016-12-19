@@ -151,4 +151,4 @@ Now just go back to your browser and refresh it
 Simply execute the ```destroyProductDemo.sh``` script
 
 # A Side Note
-This project is just a proof of concept demo. On a real  production environment I strongly suggest that you handle sessions, session expiration, security and other concerns. Placing an SSO solution like Red Hat SSO/Keycloak into your solution design can fullcomplete fill the overall solution and improve the overall user experience. 
+ On a real  production environment I strongly suggest that you handle sessions, session expiration, security and other concerns. Placing an SSO solution like Red Hat SSO/Keycloak into your solution design can complete the overall solution and improve the overall user experience. 
