@@ -19,7 +19,7 @@
 	</context-param>
 	<context-param>
 		<param-name>jdg_serverList</param-name>
-		<param-value>jdg-service:11333</param-value>
+		<param-value>jdg-service-hotrod:11333</param-value>
 	</context-param>
 	<listener>
 	     <listener-class>
