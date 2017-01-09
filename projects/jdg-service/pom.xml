@@ -165,6 +165,9 @@
 										<configuration>
 												<outputDirectory>deployments</outputDirectory>
 												<warName>ROOT</warName>
+												<!-- Java EE doesn't require web.xml, Maven needs to catch up! -->
+												<failOnMissingWebXml>false</failOnMissingWebXml>
+												<webXml>${project.basedir}/src/main/openshift-eap/WEB-INF/web.xml</webXml>
 										</configuration>
 								</plugin>
 						</plugins>
