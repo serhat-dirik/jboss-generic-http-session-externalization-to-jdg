@@ -188,25 +188,25 @@
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-core</artifactId>
-						<version>${version.jdg6.5}</version>
+						<version>${version.jdg7}</version>
 					</dependency>
 
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-client-hotrod</artifactId>
-						<version>${version.jdg6.5}</version>
+						<version>${version.jdg7}</version>
 					</dependency>
 
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-query-dsl</artifactId>
-						<version>${version.jdg6.5}</version>
+						<version>${version.jdg7}</version>
 					</dependency>
 
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-remote-query-client</artifactId>
-						<version>${version.jdg6.5}</version>
+						<version>${version.jdg7}</version>
 					</dependency>
 				</dependencies>
 		</profile>
