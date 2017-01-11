@@ -57,7 +57,7 @@ public class JdgResourcesConfig {
 	 * Infinispan Security Realm configuration Security Realms are used by the
 	 * server to provide authentication and authorization information for both
 	 * the management and application interfaces
-	 * 
+	 *
 	 * <pre>
 	 * {@code
 	 *       <management>
@@ -74,11 +74,11 @@ public class JdgResourcesConfig {
 	 *       </management>
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * Enpoint subsystem definition: The following configuration enables
 	 * authentication against ApplicationRealm, using the DIGEST-MD5 SASL
 	 * mechanism:
-	 * 
+	 *
 	 * <pre>
 	 * {@code
 	 *       <subsystem xmlns="urn:infinispan:server:endpoint:6.1">
@@ -102,7 +102,7 @@ public class JdgResourcesConfig {
 	 *       </subsystem>
 	 * }
 	 * </pre>
-	 * 
+	 *
 	 * @return CacheManager
 	 */
 
@@ -113,6 +113,7 @@ public class JdgResourcesConfig {
 			final String password = System.getProperty("infinispan.client.hotrod.password");
 			log.fine("\n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);// ,
 																							// userName:"+userName);
+			System.out.println("\n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);
 			ConfigurationBuilder confBuilder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder()
 					.tcpNoDelay(true).connectionPool().numTestsPerEvictionRun(3).testOnBorrow(true).testOnReturn(true)
 					.testWhileIdle(true).addServers(serverList);
