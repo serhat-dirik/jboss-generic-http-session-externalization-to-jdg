@@ -113,10 +113,18 @@ public class JdgResourcesConfig {
 			final String password = System.getProperty("infinispan.client.hotrod.password");
 			log.fine("\n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);// ,
 																							// userName:"+userName);
-			System.out.println("\n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);
-			ConfigurationBuilder confBuilder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder()
-					.tcpNoDelay(true).connectionPool().numTestsPerEvictionRun(3).testOnBorrow(true).testOnReturn(true)
-					.testWhileIdle(true).addServers(serverList);
+
+			ConfigurationBuilder confBuilder = null;
+			if(System.getEnv("OPENSHIFT_KUBE_PING_NAMESPACE") != null){
+				System.out.println("Working in OPENSHIFT \n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);
+				confBuilder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder()
+						.addServers(serverList);
+			}else{
+				confBuilder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder()
+						.tcpNoDelay(true).connectionPool().numTestsPerEvictionRun(3).testOnBorrow(true).testOnReturn(true)
+						.testWhileIdle(true).addServers(serverList);
+			}
+
 			org.infinispan.client.hotrod.configuration.Configuration remoteConf = null;
 			if (userName != null && password != null) {
 				remoteConf = confBuilder
