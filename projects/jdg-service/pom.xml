@@ -138,7 +138,11 @@
 						<artifactId>infinispan-core</artifactId>
 						<version>${version.jdg7}</version>
 					</dependency>
-
+					<dependency>
+						<groupId>org.infinispan</groupId>
+						<artifactId>infinispan-commons</artifactId>
+						<version>${version.jdg7}</version>
+					</dependency>
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-client-hotrod</artifactId>
@@ -190,7 +194,11 @@
 						<artifactId>infinispan-core</artifactId>
 						<version>${version.jdg6.5}</version>
 					</dependency>
-
+					<dependency>
+						<groupId>org.infinispan</groupId>
+						<artifactId>infinispan-commons</artifactId>
+						<version>${version.jdg6.5}</version>
+					</dependency>
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-client-hotrod</artifactId>
@@ -272,7 +280,11 @@
 						<artifactId>infinispan-core</artifactId>
 						<version>${version.jdg7}</version>
 					</dependency>
-
+					<dependency>
+						<groupId>org.infinispan</groupId>
+						<artifactId>infinispan-commons</artifactId>
+						<version>${version.jdg7}</version>
+					</dependency>
 					<dependency>
 						<groupId>org.infinispan</groupId>
 						<artifactId>infinispan-client-hotrod</artifactId>
