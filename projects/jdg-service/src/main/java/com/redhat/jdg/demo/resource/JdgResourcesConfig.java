@@ -115,8 +115,9 @@ public class JdgResourcesConfig {
 																							// userName:"+userName);
 
 			ConfigurationBuilder confBuilder = null;
+			System.out.println("\n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);
 			if(System.getenv("OPENSHIFT_KUBE_PING_NAMESPACE") != null){
-				System.out.println("Working in OPENSHIFT \n\t ->>> Builds the REMOTE-CacheManager \n Servers:" + serverList);
+				System.out.println("\n\t ->>> Working in OPENSHIFT");
 				confBuilder = new org.infinispan.client.hotrod.configuration.ConfigurationBuilder()
 						.addServers(serverList);
 			}else{
