@@ -171,7 +171,7 @@
 				<!-- By default that is to put the resulting archive into the 'deployments'
 						folder. -->
 				<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
-				<id>openshift</id>
+				<id>openshift-eap</id>
 				<build>
 						<plugins>
 								<plugin>
@@ -220,7 +220,7 @@
 		</profile>
 		<profile>
 			<!-- OpenShift JWS profile. -->
-			<id>openshift-jws</id>
+			<id>openshift</id>
 			<build>
 				<plugins>
 					<plugin>
