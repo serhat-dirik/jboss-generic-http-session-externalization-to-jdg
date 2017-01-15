@@ -151,7 +151,7 @@ Now just go back to your browser and refresh it
 Simply execute the ```destroyProductDemo.sh``` script
 
 # Test Demo in OpenShift
-  If you're familiar with the OpenShift container platform, you may want to give it a try this demo in there. OpenShift environment comes with out of the box JBoss EAP and JBoss WebServer (Tomcat) solutions, so we don't need to pull out any third party docker image to test this demo in OPenShift platform, we can simply build & deploy our images. Before you start, please make sure that you've OpenShift platform 3.3 and higher version.
+  If you're familiar with the OpenShift container platform, you may want to give it a try this demo in there. OpenShift environment comes with out of the box JBoss EAP and JBoss WebServer (Tomcat) application servers, so we don't need to pull out any third party docker image to test this demo in OPenShift platform, what we have in OpenShift is enough to build & deploy our demo images. Before you start, please make sure that you've OpenShift platform 3.3 and higher version.
 
   The first thing that you need to do is login into the OpenShift 3.x platform as usual:
 
@@ -176,17 +176,17 @@ Lets deploy it on  Tomcat (JBoss WebServer) first:
 #Build & deploy demo app with JWS s2i
 oc new-app openshift/jboss-webserver30-tomcat8-openshift~https://github.com/serhat-dirik/jboss-generic-http-session-externalization-to-jdg --context-dir=projects/jdg-service  --name=jws-app
 ```
-We need to wait for build process to complete:
+The command above will build the source code, prepare a JBoss JWS image that contains the demo application, create a service  definition to access demo application internally. We need to wait for build process to complete:
 ```
 #Wait build to complete
 oc logs jws-app-1-build -f
 ```
-After your build successfully completed, you need to define a root definition to access your application
+After your build successfully completed, a route definition need to be defined to access your application externally:  
 ```
 #Define route
 oc expose service jws-app
 ```
-At this point demo application should be accessible, just shoot ```oc get routes``` command to see publicly accessible url.Open your favorite browser and goto http://route url. It will ask your credentials to log into the application. ```user:demouser1 password:redhat1!``` or ```user:demouser2 password:redhat1!``` credentials can be used.
+At this point demo application should be accessible, just shoot ```oc get routes``` command to see publicly accessible url. Open your favorite browser and goto http://$(route url). It will ask your credentials to log into the application. ```user:demouser1 password:redhat1!``` or ```user:demouser2 password:redhat1!``` credentials can be used.
 
 ![Application](./images/wildfly-node1.png)
 
@@ -221,7 +221,7 @@ oc new-app eap-app --name=eap-app
 #Define route
 oc expose service eap-app
 ```
-Once more you can check defined route definitions with ``` oc get routes``` command to see publicly accessible url.Now switch to that server, as placing  http://(eap route url) to your browser. Use the same credentials to login and click on the "Get Session Value" button and check what you've in "SessionAttributes" in your result set.
+Once more you can check defined route definitions with ``` oc get routes``` command to see publicly accessible url.Now switch to that server, as placing  http://$(eap route url) to your browser. Use the same credentials to login and click on the "Get Session Value" button and check what you've in "SessionAttributes" in your result set.
 
 
 # A Side Note
