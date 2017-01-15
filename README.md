@@ -151,7 +151,7 @@ Now just go back to your browser and refresh it
 Simply execute the ```destroyProductDemo.sh``` script
 
 # Test Demo in OpenShift
-  If you're familiar with the OpenShift container platform, you may want to give it a try this demo in there. OpenShift environment comes with out of the box JBoss EAP and JBoss WebServer (Tomcat) solutions, so we don't need to pull out any third party docker image to test this demo out, we can simply deploy it.
+  If you're familiar with the OpenShift container platform, you may want to give it a try this demo in there. OpenShift environment comes with out of the box JBoss EAP and JBoss WebServer (Tomcat) solutions, so we don't need to pull out any third party docker image to test this demo in OPenShift platform, we can simply build & deploy our images. Before you start, please make sure that you've OpenShift platform 3.3 and higher version.
 
   The first thing that you need to do is login into the OpenShift 3.x platform as usual:
 
