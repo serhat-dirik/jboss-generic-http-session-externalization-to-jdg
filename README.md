@@ -150,5 +150,79 @@ Now just go back to your browser and refresh it
 ### Destroying The Demo
 Simply execute the ```destroyProductDemo.sh``` script
 
+# Test Demo in OpenShift
+  If you're familiar with the OpenShift container platform, you may want to give it a try this demo in there. OpenShift environment comes with out of the box JBoss EAP and JBoss WebServer (Tomcat) solutions, so we don't need to pull out any third party docker image to test this demo out, we can simply deploy it.
+
+  The first thing that you need to do is login into the OpenShift 3.x platform as usual:
+
+  ```
+  oc login https://your openshift:8443
+  ```
+  After you successfully logged into the platform, you need to create a project to test this demo
+
+  ```
+  oc new-project jdg-demo
+  ```
+  Next step is deploying Jboss Data Grid instances
+  ```
+  #Deploy JDG
+oc new-app --template=datagrid65-basic -p APPLICATION_NAME=jdg-service -p USERNAME=admin -p PASSWORD=redhat1! --name=jdg-service
+# Scale to cluster size of three after ensuring the first single pod came up correctly
+oc scale --replicas=3 dc jdg-service
+```
+Lets deploy it on  Tomcat (JBoss WebServer) first:
+
+```
+#Build & deploy demo app with JWS s2i
+oc new-app openshift/jboss-webserver30-tomcat8-openshift~https://github.com/serhat-dirik/jboss-generic-http-session-externalization-to-jdg --context-dir=projects/jdg-service  --name=jws-app
+```
+We need to wait for build process to complete:
+```
+#Wait build to complete
+oc logs jws-app-1-build -f
+```
+After your build successfully completed, you need to define a root definition to access your application
+```
+#Define route
+oc expose service jws-app
+```
+At this point demo application should be accessible, just shoot ```oc get routes``` command to see publicly accessible url.Open your favorite browser and goto http://route url. It will ask your credentials to log into the application. ```user:demouser1 password:redhat1!``` or ```user:demouser2 password:redhat1!``` credentials can be used.
+
+![Application](./images/wildfly-node1.png)
+
+Place a session attribute as putting a key into first box and a value into the second box and click on the "save to session" button.
+
+Now its time to deploy it to EAP application server. First we need to create necessary service accounts:
+```
+# Create a service account by the name eap-service-account for EAP
+oc create serviceaccount eap-service-account
+
+# Assign a view permission to the service account in the current project namespace
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):eap-service-account
+
+# Also assing the default service account the view access
+oc policy add-role-to-user view system:serviceaccount:$(oc project -q):default
+```
+Next we need to crate a build process to get EAP image ready to deploy
+```
+#Build EAP APP
+oc new-build openshift/jboss-eap70-openshift~https://github.com/serhat-dirik/jboss-generic-http-session-externalization-to-jdg --context-dir=projects/jdg-service -eMAVEN_ARGS="package dependency:copy-dependencies -Popenshift-eap -DskipTests -e" --name=eap-app
+
+#Wait build to complete
+ oc logs eap-app-1-build -f
+ # check if the image stream is there
+oc get is
+ ```
+ Next we just need to deploy EAP image
+ ```
+ #Deploy
+oc new-app eap-app --name=eap-app
+
+#Define route
+oc expose service eap-app
+```
+Once more you can check defined route definitions with ``` oc get routes``` command to see publicly accessible url.Now switch to that server, as placing  http://(eap route url) to your browser. Use the same credentials to login and click on the "Get Session Value" button and check what you've in "SessionAttributes" in your result set.
+
+
 # A Side Note
- On a real  production environment I strongly suggest that you handle sessions, session expiration, security and other concerns. Placing an SSO solution like Red Hat SSO/Keycloak into your solution design can complete the overall solution and improve the overall user experience. 
+ On a real  production environment I strongly suggest that you handle sessions, session expiration, security and other concerns. Placing an SSO solution like Red Hat SSO/Keycloak into your solution design can complete the overall solution and improve the overall user experience.
